@@ -1,0 +1,20 @@
+#n Wyam.Yaml
+#n Wyam.Razor
+#n Wyam.Markdown
+
+Settings[Keys.Host] = "host.com";
+
+Pipelines.Add("PresentationPages",
+  ReadFiles("presentations/*.md"),
+  FrontMatter(Yaml()),
+  Markdown(),
+  Razor().WithLayout("/_PresentationLayout.cshtml"),
+  WriteFiles(".html")
+);
+
+Pipelines.Add("Index",
+  ReadFiles("index.md"),
+  Markdown(),
+  Razor().WithLayout("_IndexLayout.cshtml"),
+  WriteFiles(".html")
+);
